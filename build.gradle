@@ -47,7 +47,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     // database
-    implementation 'mysql:mysql-connector-java:8.0.28'
+    implementation 'com.mysql:mysql-connector-j'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
     // swagger

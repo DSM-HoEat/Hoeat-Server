@@ -22,6 +22,7 @@ public class PhoneService{
     private final CodeRepository codeRepository;
 
     @Value("${spring.coolsms.devHee.apikey}")
+<<<<<<< Updated upstream
     private final String apiKey;
 
 
@@ -33,6 +34,19 @@ public class PhoneService{
 
     @Value("${spring.coolsms.live.code}")
     private final Long codeTime;
+=======
+    private String apiKey;
+
+
+    @Value("${spring.coolsms.devHee.apisecret}")
+    private String apiSecret;
+
+    @Value("${spring.coolsms.phone}")
+    private String myPhone;
+
+    @Value("${spring.coolsms.live.code}")
+    private Long codeTime;
+>>>>>>> Stashed changes
 
 
     @Transactional

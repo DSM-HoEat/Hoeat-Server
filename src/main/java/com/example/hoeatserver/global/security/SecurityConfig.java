@@ -2,7 +2,7 @@ package com.example.hoeatserver.global.security;
 
 
 import com.example.hoeatserver.global.security.jwt.JwtAuthenticationFilter;
-import com.example.hoeatserver.global.security.jwt.JwtParser;
+import com.example.hoeatserver.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,7 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-    private final JwtParser jwtParser;
+    private final JwtProvider jwtProvider;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
@@ -54,12 +54,15 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/oauth/google/code").permitAll()
                 .requestMatchers(HttpMethod.GET, "/oauth/kakao").permitAll()
                 .requestMatchers(HttpMethod.GET, "/oauth/kakao/code").permitAll()
-                .requestMatchers("/code").permitAll()
 
-                .anyRequest().permitAll();
+                .requestMatchers(HttpMethod.POST, "/user/code").permitAll()
+                .requestMatchers(HttpMethod.POST, "/user/signup").permitAll()
+                .requestMatchers(HttpMethod.POST, "/user/login").permitAll()
+
+                .anyRequest().authenticated();
 
         http
-                .addFilterBefore(new JwtAuthenticationFilter(jwtParser),
+                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider),
                         UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
